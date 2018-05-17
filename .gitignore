@@ -1,0 +1,7 @@
+data/
+results/
+.idea
+.DS_Store
+.Rhistory
+.Rapp.history
+.RData
