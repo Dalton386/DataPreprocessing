@@ -1,7 +1,7 @@
 require(maftools)
 library(dplyr)
 # set wd as DataPreprocessing/
-somatic = read.maf(maf = './data/somatic.maf.gz')
+somatic = read.maf(maf = './data/somatic.maf.gz', removeDuplicatedVariants = FALSE, isTCGA = TRUE)
 gene_patt = somatic@data[, c('Hugo_Symbol', 'Matched_Norm_Sample_Barcode')]
 gene_patt %>% mutate_if(is.factor, as.character) -> gene_patt
 genes = unique(gene_patt[, 1])
