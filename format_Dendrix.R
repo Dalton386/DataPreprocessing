@@ -8,21 +8,6 @@ genes = unique(gene_patt[, 1])
 patsize = length(unique(gene_patt[, 2]))
 result = list()
 
-## useful if patient info is not continuous
-# for (i in 1:(dim(patt)[1])) {
-#   nrow = c()
-#   nrow = paste(nrow, patt[i], sep = ' ')
-#   # nrow = c(nrow, patt[i])
-#   print(patt[i])
-#   for (j in 1:(dim(gene_patt)[1])){
-#     if (gene_patt[j,2] == patt[i]){
-#       nrow = paste(nrow, gene_patt[j,1], sep = ' ')
-#       # nrow = c(nrow, gene_patt[j,1])
-#     }
-#   }
-#   result[[i]] = nrow
-# }
-
 nrow = c()
 cnt = 1
 patnam = gene_patt[cnt,2]
@@ -44,6 +29,6 @@ for (i in 1:(dim(gene_patt)[1])){
 }
 result[[cnt]] = nrow
 
-write.table(result,"./results/DentrixInput/data_Dentrix.txt",sep="", col.names = FALSE, row.names=FALSE, quote = FALSE)
-write.table(genes, "./results/DentrixInput/analyzed_genes.txt",sep="\n", col.names = FALSE, row.names=FALSE, quote = FALSE)
+write.table(result,"./results/DendrixInput/data_Dendrix.txt",sep="", col.names = FALSE, row.names=FALSE, quote = FALSE)
+write.table(genes, "./results/DendrixInput/analyzed_genes.txt",sep="\n", col.names = FALSE, row.names=FALSE, quote = FALSE)
 
