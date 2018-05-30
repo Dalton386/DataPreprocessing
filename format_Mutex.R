@@ -10,7 +10,7 @@ gensize = length(genes)
 patsize = length(patients)
 recnum = dim(gene_patt)[1]
 
-results = matrix('0', nrow = gensize, ncol = patsize)
+results = matrix(0L, nrow = gensize, ncol = patsize)
 rownames(results) = genes
 colnames(results) = patients
 results = as.table(results)
