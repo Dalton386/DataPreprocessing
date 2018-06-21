@@ -1,29 +1,22 @@
-require(maftools)
-library(dplyr)
-# set wd as DataPreprocessing/
-somatic = read.maf(maf = './data/somatic.maf.gz', removeDuplicatedVariants = FALSE, isTCGA = TRUE)
-gene_patt = somatic@data[, c('Hugo_Symbol', 'Matched_Norm_Sample_Barcode')]
-gene_patt %>% mutate_if(is.factor, as.character) -> gene_patt
-genes = unique(gene_patt[, 1])
-patients = unique(gene_patt[, 2])
-gensize = length(genes)
-patsize = length(patients)
-recnum = dim(gene_patt)[1]
-
-mutation = matrix(0L, nrow = gensize, ncol = patsize)
-rownames(mutation) = genes
-colnames(mutation) = patients
-mutation = as.table(mutation)
-for (i in 1:recnum){
-  mutation[gene_patt[i,1], gene_patt[i,2]] = 1
-}
-
 interactive()
+filename = readline("matrix file: ")
+conname = readline("ranked-groups file: ")
+
+rawdata = read.table(paste0('./data/', filename), as.is = TRUE)
+con = file(paste0("./data/", conname), "r")
+
+rownum = dim(rawdata)[1]
+colnum = dim(rawdata)[2]
+mutation = as.matrix(rawdata[2:rownum,2:colnum])
+mutation = apply(mutation,2, FUN = as.numeric)
+rownames(mutation) = rawdata[2:rownum,1]
+colnames(mutation) = rawdata[1,2:colnum]
+mutation = as.table(mutation)
+
 threshold = as.numeric(readline("coverage threshold: "))
 
-con = file("./data/ranked-groups.txt", "r")
 line = readLines(con, n = 1)
-coverage = matrix(0L, nrow = 1, ncol = patsize)
+coverage = matrix(0L, nrow = 1, ncol = colnum-1)
 visited = c()
 count = 1
 while (TRUE) {
