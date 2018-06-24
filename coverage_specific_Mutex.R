@@ -12,7 +12,7 @@ rownames(mutation) = rawdata[2:rownum,1]
 colnames(mutation) = rawdata[1,2:colnum]
 mutation = as.table(mutation)
 
-linenum = as.numeric(readline("line number of pathway in ranked-groups file: "))
+linenum = as.numeric(readline("line number of pathway in ranked-groups file(>1): "))
 while (linenum > 1){
   coverage = matrix(0L, nrow = 1, ncol = colnum-1)
   con = file(paste0("./data/", conname), "r")
